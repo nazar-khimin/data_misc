@@ -1,10 +1,3 @@
-{{ config(
-    materialized='table',
-    schema='staging',
-    alias='dim_address',
-    tags=['staging']
-) }}
-
 WITH source_data AS (
     SELECT
         unique_id,
@@ -12,7 +5,7 @@ WITH source_data AS (
         mac_address,
         ip_address
     FROM
-        {{ source('raw_source', 'raw_batch_data') }}
+        {{ ref('raw_data') }}
 )
 
 SELECT

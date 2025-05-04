@@ -1,10 +1,3 @@
-{{ config(
-    materialized='table',
-    schema='staging',
-    alias='dim_person',
-    tags=['staging']
-) }}
-
 WITH source_data AS (
     SELECT
         unique_id,
@@ -15,7 +8,7 @@ WITH source_data AS (
         birth_date,
         personal_number
     FROM
-        {{ source('raw_source', 'raw_batch_data') }}
+        {{ ref('raw_data') }}
 )
 
 SELECT

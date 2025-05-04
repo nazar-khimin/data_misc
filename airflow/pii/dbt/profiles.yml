@@ -2,6 +2,11 @@ pii:
   target: dev
   outputs:
     dev:
+      type: duckdb
+      path: 'jaffle_shop.duckdb'
+      threads: 3
+
+    prod:
       type: postgres
       host: postgres
       user: airflow
