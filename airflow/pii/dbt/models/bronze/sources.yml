@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: csv_data
+    schema: raw_data
+    meta:
+      external_location: 'data/{name}.csv'
+    tables:
+      - name: raw_data

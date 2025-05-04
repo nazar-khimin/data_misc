@@ -1,0 +1,32 @@
+name: 'pii'
+
+config-version: 2
+version: '0.1'
+
+profile: 'pii'
+
+model-paths: ["models"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+    - "logs"
+
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+macro-paths: ["macros"]
+
+models:
+  pii:
+    raw_source:
+      database: airflow
+      schema: driven_raw
+
+    staging_source:
+      database: airflow
+      schema: driven_staging
+
+    trusted_source:
+      database: airflow
+      schema: driven_trusted

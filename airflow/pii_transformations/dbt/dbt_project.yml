@@ -1,4 +1,0 @@
-name: "dbt_driven_data"
-version: "1.0"
-profile: "default"
-model-paths: ["models"]
