@@ -23,12 +23,14 @@ models:
     bronze:
       schema: bronze
       materialized: table
+      +tags: 'bronze'
       +docs:
         node_color: '#cd7f32'
 
     silver:
       schema: silver
       materialized: ephemeral
+      +tags: 'silver'
       +docs:
         node_color: 'silver'
 
@@ -36,5 +38,7 @@ models:
       database: "{{ target.database if target.name == 'dev' else 'pg_db' }}"
       schema: gold
       materialized: table
+      +tags: 'golden'
       +docs:
         node_color: 'gold'
+
