@@ -1,8 +1,8 @@
 version: 2
 
 models:
-  - name: staging_dim_address
-  - name: staging_dim_date
-  - name: staging_dim_finance
-  - name: staging_dim_person
-  - name: staging_fact_network_usage
+  - name: stg_dim_address
+  - name: stg_dim_date
+  - name: stg_dim_finance
+  - name: stg_dim_person
+  - name: stg_fact_network_usage

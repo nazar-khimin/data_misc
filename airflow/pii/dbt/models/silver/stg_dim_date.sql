@@ -10,4 +10,3 @@ SELECT
     *
 FROM
     source_data
-    

@@ -1,10 +1,3 @@
-{{ config(
-    materialized='table',
-    schema='trusted',
-    alias='non_pii_data',
-    tags=['trusted']
-) }}
-
 WITH source_data AS (
     SELECT
         '***MASKED***' AS person_name,
@@ -24,7 +17,7 @@ WITH source_data AS (
         fnu.consumed_traffic,
         fnu.unique_id
     FROM
-        {{ source('staging_source', 'fact_network_usage') }} fnu
+        {{ ref('staging_source', 'fact_network_usage') }} fnu
     INNER JOIN
         {{ source('staging_source', 'dim_address') }} da ON fnu.unique_id = da.unique_id
     INNER JOIN
