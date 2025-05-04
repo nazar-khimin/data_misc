@@ -1,0 +1,32 @@
+name: 'jaffle_shop'
+
+config-version: 2
+version: '0.1'
+
+profile: 'jaffle_shop'
+
+model-paths: ["models"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+    - "logs"
+
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+macro-paths: ["macros"]
+
+models:
+  jaffle_shop:
+
+    bronze:
+      schema: bronze
+      materialized: table
+    silver:
+      schema: silver
+      materialized: ephemeral
+    golden:
+      database: "{{ target.database if target.name == 'dev' else 'pg_db' }}"
+      schema: gold
+      materialized: table

@@ -7,7 +7,7 @@ services:
       POSTGRES_DB: pg_db
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - '5432:5432'
+      - '9999:5432'
 
   dbt-duckdb:
     depends_on:
