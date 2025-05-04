@@ -19,7 +19,7 @@ WITH source_data AS (
     FROM
         {{ ref('stg_fact_network_usage') }} fnu
     INNER JOIN
-        {{ ref'stg_dim_address') }} da ON fnu.unique_id = da.unique_id
+        {{ ref('stg_dim_address') }} da ON fnu.unique_id = da.unique_id
     INNER JOIN
         {{ ref('stg_dim_date') }} dd ON da.unique_id = dd.unique_id
     INNER JOIN

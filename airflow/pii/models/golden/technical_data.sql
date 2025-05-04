@@ -12,9 +12,9 @@ WITH source_data AS (
             ELSE false
         END AS technical_issue
     FROM
-        {{ source('staging_source', 'fact_network_usage') }} fnu
+        {{ ref('stg_fact_network_usage') }} fnu
     JOIN
-        {{ source('staging_source', 'dim_address') }} da
+        {{ ref('stg_dim_address') }} da
     ON
 	    fnu.unique_id = da.unique_id
 )
