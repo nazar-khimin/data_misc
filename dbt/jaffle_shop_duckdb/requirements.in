@@ -1,0 +1,3 @@
+# Database adapter
+dbt-duckdb
+dbt-core

@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: csv_data
+    schema: jaffle_shop
+    meta:
+      external_location: 'data/{name}.csv'
+    tables:
+      - name: raw_customers
+      - name: raw_orders
+      - name: raw_payments
