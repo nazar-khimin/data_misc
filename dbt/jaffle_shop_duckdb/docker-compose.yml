@@ -19,7 +19,7 @@ services:
       - $PWD:/usr/app
     command: >
       sh -c '''
-        # rm -f *.duckdb
+        rm -f *.duckdb
         # dbt clean
         dbt run --target prod
         dbt docs generate
