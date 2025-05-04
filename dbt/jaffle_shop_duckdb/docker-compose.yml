@@ -19,9 +19,9 @@ services:
       - $PWD:/usr/app
     command: >
       sh -c '''
-        rm -f *.duckdb
+        # rm -f *.duckdb
         # dbt clean
         dbt run --target prod
-        # dbt docs generate
-        # dbt docs serve --host=0.0.0.0 && tail -f /dev/null
+        dbt docs generate
+        dbt docs serve --host=0.0.0.0 && tail -f /dev/null
       '''

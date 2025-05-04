@@ -35,13 +35,12 @@ jaffle_shop_duckdb/
 ## 🚀 Run Everything
 
 > ⚠️ Make sure you're in the root of the project folder before running this!
+```bash
+pip-compile requirements.in
+```
 
 ```bash
-docker run --rm -it \
-  -v "$PWD":/project \
-  -w /project \
-  xemuliam/dbt:duckdb \
-  dbt run
+docker-compose up
 ```
 
 This will:
