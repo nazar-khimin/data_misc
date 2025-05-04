@@ -19,14 +19,14 @@ macro-paths: ["macros"]
 
 models:
   pii:
-    raw_source:
-      database: duckdb
-      schema: driven_raw
+    bronze:
+      schema: bronze
+      materialized: table
 
-    staging_source:
-      database: duckdb
-      schema: driven_staging
+    silver:
+      schema: silver
+      materialized: table
 
-    trusted_source:
-      database: duckdb
-      schema: driven_trusted
+    golden:
+      schema: golden
+      materialized: table

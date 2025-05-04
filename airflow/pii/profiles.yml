@@ -3,7 +3,7 @@ pii:
   outputs:
     dev:
       type: duckdb
-      path: 'jaffle_shop.duckdb'
+      path: 'pii.duckdb'
       threads: 3
 
     prod:
