@@ -20,13 +20,13 @@ macro-paths: ["macros"]
 models:
   pii:
     raw_source:
-      database: airflow
+      database: duckdb
       schema: driven_raw
 
     staging_source:
-      database: airflow
+      database: duckdb
       schema: driven_staging
 
     trusted_source:
-      database: airflow
+      database: duckdb
       schema: driven_trusted
