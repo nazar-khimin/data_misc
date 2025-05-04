@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: non_pii_data
+  - name: payment_data
+  - name: pii_data
+  - name: technical_data

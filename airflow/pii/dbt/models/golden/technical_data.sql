@@ -1,10 +1,3 @@
-{{ config(
-    materialized='table',
-    schema='trusted',
-    alias='technical_data',
-    tags=['trusted']
-) }}
-
 WITH source_data AS (
     SELECT
         fnu.unique_id,

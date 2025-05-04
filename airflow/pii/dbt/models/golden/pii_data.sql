@@ -1,10 +1,3 @@
-{{ config(
-    materialized='table',
-    schema='trusted',
-    alias='pii_data',
-    tags=['trusted']
-) }}
-
 WITH source_data AS (
     SELECT
         dp.person_name,
@@ -24,15 +17,15 @@ WITH source_data AS (
         fnu.consumed_traffic,
         fnu.unique_id
     FROM
-        {{ source('staging_source', 'fact_network_usage') }} fnu
+        {{ ref('stg_fact_network_usage') }} fnu
     INNER JOIN
-        {{ source('staging_source', 'dim_address') }} da ON fnu.unique_id = da.unique_id
+        {{ ref'stg_dim_address') }} da ON fnu.unique_id = da.unique_id
     INNER JOIN
-        {{ source('staging_source', 'dim_date') }} dd ON da.unique_id = dd.unique_id
+        {{ ref('stg_dim_date') }} dd ON da.unique_id = dd.unique_id
     INNER JOIN
-        {{ source('staging_source', 'dim_finance') }} df ON dd.unique_id = df.unique_id
+        {{ ref('stg_dim_finance') }} df ON dd.unique_id = df.unique_id
     INNER JOIN
-        {{ source('staging_source', 'dim_person') }} dp ON df.unique_id = dp.unique_id
+        {{ ref('stg_dim_person') }} dp ON df.unique_id = dp.unique_id
 )
 
 SELECT
