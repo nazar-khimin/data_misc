@@ -6,4 +6,5 @@ sources:
     meta:
       external_location: '../data/{name}.csv'
     tables:
+      - name: raw_source
       - name: raw_data
