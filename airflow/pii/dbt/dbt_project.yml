@@ -22,11 +22,20 @@ models:
     bronze:
       schema: bronze
       materialized: table
+      +tags: 'bronze'
+      +docs:
+        node_color: '#cd7f32'
 
     silver:
       schema: silver
       materialized: table
+      +tags: 'silver'
+      +docs:
+        node_color: 'silver'
 
     golden:
       schema: golden
       materialized: table
+      +tags: 'golden'
+      +docs:
+        node_color: 'gold'

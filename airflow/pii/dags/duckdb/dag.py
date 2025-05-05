@@ -4,6 +4,7 @@ import random
 from datetime import date, datetime
 
 from airflow import DAG
+from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from faker import Faker
 
@@ -72,4 +73,16 @@ generate_raw_data = PythonOperator(
     dag=dag,
 )
 
-generate_raw_data
+# Define staging dbt models run task.
+run_dbt_staging_task = BashOperator(
+    task_id='run_dbt_staging',
+    bash_command='set -x; cd /opt/airflow/dbt && dbt run --select tag:silver',
+)
+
+# Define golden dbt models run task.
+run_dbt_trusted_task = BashOperator(
+    task_id='run_dbt_trusted',
+    bash_command='set -x; cd /opt/airflow/dbt && dbt run --select tag:golden',
+)
+
+generate_raw_data >> run_dbt_staging_task >> run_dbt_trusted_task
