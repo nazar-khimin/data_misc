@@ -162,7 +162,6 @@ dag = DAG(
     'extract_raw_data_pipeline',
     default_args=default_args,
     description='DataDriven Main Pipeline.',
-    schedule_interval="* 7 * * *",
     start_date=datetime(2024, 9, 22),
     catchup=False,
 )

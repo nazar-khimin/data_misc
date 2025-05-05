@@ -9,6 +9,3 @@ COPY requirements.txt .
 
 # Install all dependencies from the requirements file.
 RUN pip install -r ./requirements.txt
-
-# Copy dbt directory into the container.
-COPY dbt /opt/airflow/dbt

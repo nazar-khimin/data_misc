@@ -62,7 +62,6 @@ dag = DAG(
     default_args=default_args,
     start_date=datetime(2024, 9, 22),
     catchup=False,
-    schedule_interval="@daily",
     description="Generate raw CSV data",
 )
 
