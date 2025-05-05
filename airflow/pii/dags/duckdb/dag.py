@@ -69,7 +69,7 @@ dag = DAG(
 generate_raw_data = PythonOperator(
     task_id="generate_raw_data_and_write_to_csv",
     python_callable=_generate_raw_data_and_write_to_csv,
-    op_kwargs={'data_csv':'pii/data/raw_data.csv'},
+    op_kwargs={'data_csv':'/opt/airflow/data/raw_data.csv'},
     dag=dag,
 )
 
