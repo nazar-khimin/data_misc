@@ -34,6 +34,7 @@ models:
         node_color: 'silver'
 
     golden:
+      database: "{{ target.database if target.name == 'dev' else 'pg_db' }}"
       schema: golden
       materialized: table
       +tags: 'golden'

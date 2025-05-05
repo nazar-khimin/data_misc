@@ -1,5 +1,5 @@
 pii:
-  target: dev
+  target: prod
   outputs:
     dev:
       type: duckdb
@@ -8,9 +8,10 @@ pii:
 
     prod:
       type: postgres
-      host: postgres
-      user: airflow
-      password: airflow
-      dbname: airflow
-      schema: driven
-      port: 5432
+      threads: 25
+      extensions:
+        - postgres
+      attach:
+        - path: "postgresql://pstgrs_user:pstgrs_pswd@pstgrs:9998/postgres"
+          type: postgres
+          alias: pg_db
