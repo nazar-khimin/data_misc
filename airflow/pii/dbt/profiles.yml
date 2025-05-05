@@ -1,5 +1,5 @@
 pii:
-  target: prod
+
   outputs:
     dev:
       type: duckdb
@@ -12,6 +12,8 @@ pii:
       extensions:
         - postgres
       attach:
-        - path: "postgresql://pstgrs_user:pstgrs_pswd@pstgrs:9998/postgres"
+        - path: "postgresql://airflow:airflow@postgres:9998/airflow"
           type: postgres
           alias: pg_db
+
+  target: prod
