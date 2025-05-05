@@ -3,3 +3,5 @@
 /dbt/.user.yml
 /logs/
 /target/
+/dbt/package-lock.yml
+/dbt/pii.duckdb
