@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: raw_data
+    columns:
+      - name: unique_id
+        description: System-generated UUID per row
+        tests:
+          - not_null
+          - unique
+      - name: accessed_at
+        description: Access time, replaced with yesterday's date if today is not some specific day
+        tests:
+          - not_null
+  - name: updated_data
