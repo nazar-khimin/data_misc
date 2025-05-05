@@ -4,14 +4,13 @@ import csv
 import logging
 import uuid
 import polars as pl
+from airflow import DAG
+from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
+from airflow.providers.standard.operators.bash import BashOperator
+from airflow.providers.standard.operators.python import PythonOperator
 
 from faker import Faker
 from datetime import date, datetime, timedelta
-
-from airflow import DAG
-from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
-from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 
 # Configure logging.
 logging.basicConfig(

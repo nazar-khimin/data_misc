@@ -4,8 +4,8 @@ import random
 from datetime import date, datetime
 
 from airflow import DAG
-from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.bash import BashOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from faker import Faker
 
 def _create_data(locale: str) -> Faker:
@@ -69,7 +69,7 @@ dag = DAG(
 generate_raw_data = PythonOperator(
     task_id="generate_raw_data_and_write_to_csv",
     python_callable=_generate_raw_data_and_write_to_csv,
-    op_kwargs={'data_csv':'../data/raw_data.csv'},
+    op_kwargs={'data_csv':'pii/data/raw_data.csv'},
     dag=dag,
 )
 
