@@ -7,7 +7,7 @@ jaffle_shop:
       threads: 3
 
     prod:
-      type: postgres
+      type: duckdb
       threads: 25
       extensions:
         - postgres
