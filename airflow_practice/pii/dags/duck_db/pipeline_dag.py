@@ -5,6 +5,8 @@ from duck_db.run_data_generation_task import generate_raw_data_and_write_to_csv
 from duck_db.run_golden_dbt_task import run_dbt_golden_task
 from duck_db.run_silver_dbt_task import run_dbt_silver_task
 
+from airflow_practice.pii.dags.duck_db.tasks.run_bronze_dbt_task import run_dbt_bronze_task
+
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -22,6 +24,11 @@ default_args = {
 )
 def main_dag():
     data_csv = "/opt/airflow/data/raw_data.csv"
-    generate_raw_data_and_write_to_csv(data_csv) >> run_dbt_silver_task() >> run_dbt_golden_task()
+    (
+            generate_raw_data_and_write_to_csv(data_csv) >>
+            run_dbt_bronze_task() >>
+            run_dbt_silver_task() >>
+            run_dbt_golden_task()
+    )
 
 main_dag()
