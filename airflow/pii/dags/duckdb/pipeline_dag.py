@@ -13,17 +13,15 @@ default_args = {
 
 @dag(
     dag_id="duckdb_data_generator_and_dbt_transformations",
+    schedule=None,
     default_args=default_args,
-    start_date=pendulum.datetime(2024, 9, 22, tz="UTC"),
+    start_date=pendulum.datetime(2025, 5, 1),
     catchup=False,
-    description="Generate raw data and run dbt transformations (silver and golden models)",
+    description="Generate raw data and run dbt transformations (bronze, silver and golden models)",
     tags=["data-generation", "dbt", "silver", "golden"]
 )
 def main_dag():
     data_csv = "/opt/airflow/data/raw_data.csv"
-
-    # Task dependencies
     generate_raw_data_and_write_to_csv(data_csv) >> run_dbt_silver_task() >> run_dbt_golden_task()
 
-# Instantiate the DAG
 main_dag()
