@@ -6,7 +6,6 @@ from datetime import date, datetime
 from airflow.models import Variable
 
 from airflow import DAG
-from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.python import PythonOperator
 from faker import Faker
 
@@ -51,7 +50,7 @@ def _generate_raw_data_and_write_to_csv(data_csv: str) -> None:
         writer.writerow(headers)
         for _ in range(rows):
             writer.writerow(_generate_raw_data(fake))
-    logging.info(f"Written {rows} records to the CSV file.")
+    logging.info(f"Written {rows} records to the CSV file {data_csv}")
 
 default_args = {
     'owner': 'airflow',
@@ -70,6 +69,6 @@ dag = DAG(
 generate_raw_data = PythonOperator(
     task_id="generate_raw_data_and_write_to_csv",
     python_callable=_generate_raw_data_and_write_to_csv,
-    op_kwargs={'data_csv': Variable.get("RAW_DATA_PATH", "Not Found")},
+    op_kwargs={'data_csv': '/opt/airflow/data/raw_data.csv'},
     dag=dag,
 )
