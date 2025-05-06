@@ -1,7 +1,7 @@
 import pendulum
 from airflow.sdk import dag
 
-from airflow.pii.dags.duckdb.tasks.generate_data_task import generate_raw_data_and_write_to_csv
+from airflow.pii.dags.duckdb.tasks.run_data_generation_task import generate_raw_data_and_write_to_csv
 from airflow.pii.dags.duckdb.tasks.run_golden_dbt_task import run_dbt_golden_task
 from airflow.pii.dags.duckdb.tasks.run_silver_dbt_task import run_dbt_silver_task
 
