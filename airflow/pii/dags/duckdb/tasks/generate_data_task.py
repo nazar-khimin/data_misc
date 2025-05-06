@@ -1,12 +1,9 @@
 import csv
 import logging
 import random
-from datetime import date, datetime
+from datetime import date
 
-from airflow.models import Variable
-
-from airflow import DAG
-from airflow.providers.standard.operators.python import PythonOperator
+from airflow.sdk import task
 from faker import Faker
 
 def _create_data(locale: str) -> Faker:
@@ -36,7 +33,8 @@ def _generate_raw_data(fake: Faker) -> list:
         session_duration, download_speed, upload_speed, consumed_traffic
     ]
 
-def _generate_raw_data_and_write_to_csv(data_csv: str) -> None:
+@task(task_id="generate_raw_data")
+def generate_raw_data_and_write_to_csv(data_csv: str):
     fake = _create_data("ro_RO")
     headers = ["person_name", "user_name", "email", "personal_number", "birth_date", "address",
                "phone", "mac_address", "ip_address", "iban", "accessed_at",
@@ -51,24 +49,3 @@ def _generate_raw_data_and_write_to_csv(data_csv: str) -> None:
         for _ in range(rows):
             writer.writerow(_generate_raw_data(fake))
     logging.info(f"Written {rows} records to the CSV file {data_csv}")
-
-default_args = {
-    'owner': 'airflow',
-    'depends_on_past': False,
-    'retries': 0,
-}
-#
-dag = DAG(
-    dag_id="duckdb_data_generator",
-    default_args=default_args,
-    start_date=datetime(2024, 9, 22),
-    catchup=False,
-    description="Generate raw CSV data",
-)
-
-generate_raw_data = PythonOperator(
-    task_id="generate_raw_data_and_write_to_csv",
-    python_callable=_generate_raw_data_and_write_to_csv,
-    op_kwargs={'data_csv': '/opt/airflow/data/raw_data.csv'},
-    dag=dag,
-)
