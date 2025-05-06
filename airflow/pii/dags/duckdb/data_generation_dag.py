@@ -3,6 +3,8 @@ import logging
 import random
 from datetime import date, datetime
 
+from airflow.models import Variable
+
 from airflow import DAG
 from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.python import PythonOperator
@@ -68,20 +70,6 @@ dag = DAG(
 generate_raw_data = PythonOperator(
     task_id="generate_raw_data_and_write_to_csv",
     python_callable=_generate_raw_data_and_write_to_csv,
-    op_kwargs={'data_csv':'/opt/airflow/data/raw_data.csv'},
+    op_kwargs={'data_csv': Variable.get("RAW_DATA_PATH", "Not Found")},
     dag=dag,
 )
-
-# Define staging dbt models run task.
-run_dbt_staging_task = BashOperator(
-    task_id='run_dbt_staging',
-    bash_command='set -x; cd /opt/airflow/dbt && dbt run --select tag:silver',
-)
-
-# Define golden dbt models run task.
-run_dbt_trusted_task = BashOperator(
-    task_id='run_dbt_trusted',
-    bash_command='set -x; cd /opt/airflow/dbt && dbt run --select tag:golden',
-)
-
-generate_raw_data >> run_dbt_staging_task >> run_dbt_trusted_task

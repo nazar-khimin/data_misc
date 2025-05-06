@@ -1,5 +1,5 @@
 pii:
-  target: prod
+  target: "{{ env_var('DBT_TARGET', 'dev') }}"
   outputs:
     dev:
       type: duckdb
@@ -8,10 +8,11 @@ pii:
 
     prod:
       type: duckdb
+      path: "{{ env_var('DUCKDB_PATH', 'pii.duckdb') }}"
       threads: 25
       extensions:
         - postgres
       attach:
-        - path: "postgresql://airflow:airflow@localhost:9998/airflow"
+        - path: "{{ env_var('DBT_PG_CONN', 'postgresql://airflow:airflow@localhost:5432/airflow') }}"
           type: postgres
           alias: pg_db

@@ -12,4 +12,4 @@ models:
         description: Access time, replaced with yesterday's date if today is not some specific day
         tests:
           - not_null
-  - name: updated_data
+  - name: raw_source
