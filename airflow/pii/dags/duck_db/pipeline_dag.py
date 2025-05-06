@@ -1,9 +1,9 @@
 import pendulum
 from airflow.sdk import dag
 
-from tasks.run_golden_dbt_task import run_dbt_golden_task
-from tasks.run_silver_dbt_task import run_dbt_silver_task
-from tasks.run_data_generation_task import generate_raw_data_and_write_to_csv
+from airflow.pii.dags.duck_db.run_golden_dbt_task import run_dbt_golden_task
+from airflow.pii.dags.duck_db.run_silver_dbt_task import run_dbt_silver_task
+from airflow.pii.dags.duck_db.run_data_generation_task import generate_raw_data_and_write_to_csv
 
 default_args = {
     'owner': 'airflow',
