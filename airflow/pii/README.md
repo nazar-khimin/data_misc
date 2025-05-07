@@ -1,30 +1,64 @@
-## Scenario 3
-For the third chapter/sprint, you need to create an orchestrated pipeline that will allow all stages to run in a managed way. The pipeline should run daily and make data available at 10:00 AM EET. It should extract data into the bronze layer (raw zone) named *lead_raw*, apply necessary transformations into the silver layer (staging zone) named *lead_staging*, and upload data to the golden layer (trusted zone) named *lead_trusted* for consumption in the analytical process. It is required that the golden layer contains four tables: a financial table for payment calculations, a technical table for analyzing technical issues, a non-PII table for access by all users with limited access levels across the organization, and a PII table for users with high access levels.
+# 🛠️ **Data Processing Pipelines with Airflow 3.0.0**
 
-## Instructions 3
-Use the directory `chapter_3/work_3/` as your project directory for work related to **Chapter 3** for **LeadData** company.
+Welcome to the repository where data flows seamlessly through Bronze, Silver, and Golden layers. Powered by Apache Airflow 3.0.0, this project showcases modern ETL practices with a touch of elegance.
 
-## Assignment 3
-a. Setup Docker container:
-* i. Run Docker Desktop.
-* ii. Retrieve Docker Compose file.
-* iii. Update Docker Compose file.
-* iv. Add requirements.
-* v. Create Dockerfile.
+---
 
-b. Create dbt:
-* i. Create project.
-* ii. Create profiles.
-* iii. Create sources.
-* iv. Create models.
+## 🚀 **What's New?**
 
-c. Create Airflow:
-* i. Run containers.
-* ii. Login.
-* iii. Setup Connection.
-* iv. Create DAG.
-* v. Run DAG.
+### 🔧 **Airflow 3.0.0 Upgrade**
 
-d. Setup pgAdmin 4 database:
-* i. Connect to database.
-* ii. Check data in database.
+- **Modern Architecture**: Embracing the latest features and improvements in Airflow 3.0.0 to enhance performance and scalability.
+
+- **TaskFlow API**: Utilizing the TaskFlow API with decorators for cleaner and more maintainable DAG definitions.
+
+### 🧠 **SQL Logic Integration**
+
+- **Unique ID & Date Management**: Moved the logic for inserting unique IDs and updating dates directly into SQL models, streamlining the ETL process.
+
+### 🗄️ **Data Storage Strategy**
+
+- **DuckDB**: Serving as the storage solution for Bronze and Silver layers, providing efficient data processing capabilities.
+
+- **PostgreSQL**: Handling the Golden layer, ensuring reliable and scalable data storage for production use.
+
+### 🧩 **DAGs Overview**
+
+- **`duck_dbt_tag`**: A DAG dedicated to running DBT models in DuckDB, facilitating data transformation and analysis.
+
+- **`raw_generation_dag`**: A DAG responsible for generating raw data, forming the foundation of the data pipeline.
+
+Both DAGs are defined using Airflow decorators, following best practices for readability and maintainability.
+
+### 🧊 **Polars Compatibility**
+
+- **Existing DAG Update**: The existing DAG for Polars has been updated to ensure compatibility with the latest library versions, maintaining smooth data processing workflows.
+
+---
+
+## 🧪 **Example Usage**
+
+```python
+from airflow.decorators import dag, task
+import pendulum
+
+@dag(
+    schedule=None,
+    start_date=pendulum.datetime(2025, 5, 7, tz="Europe/Kyiv"),
+    catchup=False,
+    tags=["data_misc", "pii"],
+)
+def raw_generation_dag():
+    @task
+    def extract():
+        pass
+
+    @task
+    def transform():
+        pass
+
+    @task
+    def load():
+        pass
+
+    extract() >> transform() >> load()
