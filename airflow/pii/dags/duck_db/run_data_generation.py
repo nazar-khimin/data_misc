@@ -50,13 +50,11 @@ def generate_raw_data_and_write_to_csv(data_csv: str):
             writer.writerow(_generate_raw_data(fake))
     logging.info(f"Written {rows} records to the CSV file {data_csv}")
 
-@dag(
-    schedule=None,
-    start_date=datetime(2023, 1, 1),
-    catchup=False,
-    dag_id="raw_generation_dag")
+@dag(schedule="@daily",
+     start_date=datetime(2025, 5, 7),
+     catchup=False)
 def raw_generation_dag():
-    @task(task_id="generate_data_task")
+    @task()
     def generate_data_task():
         file_path = "/opt/airflow/data/raw_data.csv"
         generate_raw_data_and_write_to_csv(file_path)
