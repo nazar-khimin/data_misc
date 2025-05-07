@@ -3,8 +3,9 @@ import logging
 import random
 from datetime import date
 
-from airflow.sdk import task
+from airflow.sdk import task, dag
 from faker import Faker
+from pendulum import datetime
 
 def _create_data(locale: str) -> Faker:
     logging.info(f"Created synthetic data for {locale.split('_')[-1]} country code.")
@@ -33,7 +34,6 @@ def _generate_raw_data(fake: Faker) -> list:
         session_duration, download_speed, upload_speed, consumed_traffic
     ]
 
-@task(task_id="generate_raw_data")
 def generate_raw_data_and_write_to_csv(data_csv: str):
     fake = _create_data("ro_RO")
     headers = ["person_name", "user_name", "email", "personal_number", "birth_date", "address",
@@ -49,3 +49,15 @@ def generate_raw_data_and_write_to_csv(data_csv: str):
         for _ in range(rows):
             writer.writerow(_generate_raw_data(fake))
     logging.info(f"Written {rows} records to the CSV file {data_csv}")
+
+@dag(schedule=None, start_date=datetime(2023, 1, 1), catchup=False)
+def raw_generation_dag():
+    @task()
+    def generate_data_task():
+        file_path = "/opt/airflow/data/raw_data.csv"
+        generate_raw_data_and_write_to_csv(file_path)
+        return file_path
+
+    generate_data_task()
+
+dag_instance = raw_generation_dag()
