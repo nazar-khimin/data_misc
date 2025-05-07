@@ -98,6 +98,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+      - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     ports:
       - "${POSTGRES_PORT}:5432"
     healthcheck:
