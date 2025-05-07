@@ -4,7 +4,7 @@ from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.sdk import dag, task
 from pendulum import datetime
 
-@dag(schedule="@daily",
+@dag(schedule=None,
      start_date=datetime(2025, 5, 7),
      catchup=False)
 def duck_dbt_dag():

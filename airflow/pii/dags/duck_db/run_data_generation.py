@@ -50,7 +50,7 @@ def generate_raw_data_and_write_to_csv(data_csv: str):
             writer.writerow(_generate_raw_data(fake))
     logging.info(f"Written {rows} records to the CSV file {data_csv}")
 
-@dag(schedule="@daily",
+@dag(schedule=None,
      start_date=datetime(2025, 5, 7),
      catchup=False)
 def raw_generation_dag():
