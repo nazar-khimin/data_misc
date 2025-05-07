@@ -1,40 +1,59 @@
-# 🛠️ **Data Processing Pipelines with Airflow 3.0.0**
+# 🛠️ Airflow 3.0.0 Pipelines
 
-Welcome to the repository where data flows seamlessly through Bronze, Silver, and Golden layers. Powered by Apache Airflow 3.0.0, this project showcases modern ETL practices with a touch of elegance.
+ETL workflows processing data across Bronze, Silver, and Golden layers using Airflow 3.0.0.
+
+---
+
+## 🔧 What's New
+
+- **Airflow 3.0.0**: Upgraded to the latest version with enhanced features and performance.
+
+- **SQL Logic**: Moved unique ID insertion and date updates directly into SQL models.
+
+- **Data Storage**:
+    - **DuckDB**: Bronze & Silver layers.
+    - **PostgreSQL**: Golden layer.
+
+- **DAGs**:
+    - `duck_dbt_tag`: Runs DBT models in DuckDB.
+    - `raw_generation_dag`: Generates raw data.
+
+Both DAGs are defined using Airflow decorators.
+
+- **Polars DAG**: Existing DAG updated for compatibility with latest libraries.
 
 ---
 
-## 🚀 **What's New?**
+## 📦 Useful Commands
 
-### 🔧 **Airflow 3.0.0 Upgrade**
+1. Install local dependencies:
 
-- **Modern Architecture**: Embracing the latest features and improvements in Airflow 3.0.0 to enhance performance and scalability.
+```bash
+pip install -r requirements
 
-- **TaskFlow API**: Utilizing the TaskFlow API with decorators for cleaner and more maintainable DAG definitions.
+```
 
-### 🧠 **SQL Logic Integration**
+2. Start Airflow 3.0.0 via Docker Compose
+```bash
+-> docker compose build
+-> docker compose up airflow-init
+-> docker compose up
+-> docker compose down
+-> docker compose down --volumes --rmi all
+-> docker system prune --all
+```
 
-- **Unique ID & Date Management**: Moved the logic for inserting unique IDs and updating dates directly into SQL models, streamlining the ETL process.
+Check ENV variables in container
+```bash
+-> docker exec -it <container_id> env
+-> docker exec -it <container_id> printenv DBT_PG_CONN
 
-### 🗄️ **Data Storage Strategy**
+```
 
-- **DuckDB**: Serving as the storage solution for Bronze and Silver layers, providing efficient data processing capabilities.
-
-- **PostgreSQL**: Handling the Golden layer, ensuring reliable and scalable data storage for production use.
-
-### 🧩 **DAGs Overview**
-
-- **`duck_dbt_tag`**: A DAG dedicated to running DBT models in DuckDB, facilitating data transformation and analysis.
-
-- **`raw_generation_dag`**: A DAG responsible for generating raw data, forming the foundation of the data pipeline.
-
-Both DAGs are defined using Airflow decorators, following best practices for readability and maintainability.
-
-### 🧊 **Polars Compatibility**
-
-- **Existing DAG Update**: The existing DAG for Polars has been updated to ensure compatibility with the latest library versions, maintaining smooth data processing workflows.
-
----
+3. DBT
+```bash
+dbt run --target prod
+```
 
 ## 🧪 **Example Usage**
 
