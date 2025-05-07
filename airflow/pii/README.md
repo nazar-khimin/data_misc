@@ -15,7 +15,7 @@ ETL workflows processing data across Bronze, Silver, and Golden layers using Air
     - **PostgreSQL**: Golden layer.
 
 - **DAGs**:
-    - `duck_dbt_tag`: Runs DBT models in DuckDB.
+    - `duck_dbt_tag`: Runs DBT models in DuckDB and PostqreSQL
     - `raw_generation_dag`: Generates raw data.
 
 Both DAGs are defined using Airflow decorators.
