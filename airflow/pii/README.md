@@ -1,4 +1,4 @@
-# 🛠️ Airflow 3.0.0 Pipelines - DAG examples
+# 🛠️ Airflow 3.0.0 Pipelines - DAG examples with DBT
 
 ETL workflows processing data across Bronze, Silver, and Golden layers using Airflow 3.0.0.
 
