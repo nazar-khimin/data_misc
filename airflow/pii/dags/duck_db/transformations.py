@@ -17,9 +17,9 @@ def duck_dbt_dag():
 
     dbt_run = "set -x; cd /opt/airflow/dbt && dbt run"
     dbt_commands = {
-        "bronze": f"{dbt_run} --select tag:bronze",
-        "silver": f"{dbt_run} --select tag:silver",
-        "golden": f"{dbt_run} --select tag:golden"
+        "bronze": f"{dbt_run} --select tag:bronze --target prod",
+        "silver": f"{dbt_run} --select tag:silver --target prod",
+        "golden": f"{dbt_run} --select tag:golden --target prod"
     }
 
     bronze = run_dbt.override(task_id="run_bronze")(dbt_commands["bronze"])
