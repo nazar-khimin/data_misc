@@ -4,7 +4,7 @@ from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.sdk import task, dag, task_group
 from pendulum import datetime
 
-from airflow.pii.generators.data_generator import generate_raw_data_and_write_to_csv
+from generators.data_generator import generate_raw_data_and_write_to_csv
 
 @task
 def generate_data_task():
