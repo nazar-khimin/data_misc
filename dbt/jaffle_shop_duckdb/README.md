@@ -2,6 +2,9 @@
 
 This project runs dbt with DuckDB inside a Docker container, **without using `dbt seed`** to load raw data. Instead, raw CSV files are loaded via SQL models as real DuckDB tables. The setup avoids unnecessary DB objects and keeps everything lightweight and local.
 
+![dbt_components.png](img/dbt_components.png)
+![lineage.png](img/lineage.png)
+![dbt_components.png](img/components.png)
 ---
 
 ## ✅ Features
