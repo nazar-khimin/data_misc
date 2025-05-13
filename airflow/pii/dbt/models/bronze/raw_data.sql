@@ -1,7 +1,7 @@
 WITH
 accessed_at_update AS (
     SELECT
-        {{ dbt_utils.star(from=ref('raw_source'), except=['accessed_at']) }},
+        * EXCLUDE (accessed_at),
         CASE
             WHEN date_trunc('day', accessed_at) != DATE '2024-10-14'
             THEN current_date() - 1
