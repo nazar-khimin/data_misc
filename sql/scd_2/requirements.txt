@@ -1,0 +1,5 @@
+great_expectations
+duck
+sqlalchemy
+duckdb-engine
+notebook
