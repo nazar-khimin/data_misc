@@ -8,7 +8,6 @@ resource "aws_mwaa_environment" "mwaa_env" {
   environment_class    = "mw1.small"
   dag_s3_path          = "dags/"
   requirements_s3_path = "requirements.txt"
-  startup_script_s3_path    = "startup.sh"
   network_configuration {
     security_group_ids = [aws_security_group.mwaa_sg.id]
     subnet_ids         = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
