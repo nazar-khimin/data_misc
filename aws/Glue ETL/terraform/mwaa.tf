@@ -40,11 +40,3 @@ resource "aws_mwaa_environment" "mwaa_env" {
     Name = var.tag
   }
 }
-
-locals {
-  airflow_variables = templatefile("files/airflow_variables.json", {
-    s3_bucket_name = aws_s3_bucket.data-bucket.bucket
-    glue_role      = aws_iam_role.glue_execution_role.arn
-    db_name        = aws_glue_catalog_database.driven_data_db.name
-  })
-}
