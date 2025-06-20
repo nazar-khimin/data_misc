@@ -7,7 +7,7 @@ resource "aws_mwaa_environment" "mwaa_env" {
   min_workers          = 1
   environment_class    = "mw1.small"
   dag_s3_path          = "dags/"
-  requirements_s3_path = "airflow/requirements.txt"
+  requirements_s3_path = "requirements.txt"
   startup_script_s3_path    = "startup.sh"
   network_configuration {
     security_group_ids = [aws_security_group.mwaa_sg.id]
