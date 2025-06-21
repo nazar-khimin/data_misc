@@ -1,5 +1,7 @@
 
-### ETL Pipeline using AWS Glue**
+### ETL Pipeline using AWS Glue
+<img width="1449" alt="image" src="https://github.com/user-attachments/assets/d5dabb00-0362-4256-bedb-6f6c48f75c19" />
+
 
 ## AWS Services:
 1. Amazon S3
@@ -27,10 +29,6 @@ For validation purposes:
 - Apply necessary transformations using AWS Glue Job
 - Store data in S3 and metadata in **Glue Data Catalog**
 - Query using **Athena**  
-
-
-<img width="1449" alt="image" src="https://github.com/user-attachments/assets/d5dabb00-0362-4256-bedb-6f6c48f75c19" />
-
 
 https://github.com/user-attachments/assets/b504542d-b802-4871-9632-86d5b61f80d0
 
