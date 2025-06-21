@@ -1,7 +1,7 @@
 
-**ETL Pipeline using AWS Glue**
+### ETL Pipeline using AWS Glue**
 
-AWS Services:
+## AWS Services:
 1. Amazon S3
 2. AWS MWAA
 3. AWS Glue Crawlers
@@ -14,13 +14,13 @@ For validation purposes:
 1. automation-troubleshoot -> https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-troubleshoot-mwaa-environment-creation.html
 2. aws-support-tools verificator -> https://github.com/awslabs/aws-support-tools/tree/master/MWAA
 
-🧰 Tools & Technologies
+## 🧰 Tools & Technologies
 1. Python
 2. Terraform
 
-⚙️ DAG Description
+## ⚙️ DAG Description
 
-### 1. ETL Transformation: Generate & Process Data
+## 1. ETL Transformation: Generate & Process Data
 
 A **Glue Job** (PySpark-based) is triggered by **Airflow** to:
 
@@ -31,7 +31,7 @@ A **Glue Job** (PySpark-based) is triggered by **Airflow** to:
 
 ---
 
-### 2. Schema Crawling & Metadata Registration
+## 2. Schema Crawling & Metadata Registration
 
 A **Glue Crawler** is launched to:
 
