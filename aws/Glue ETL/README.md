@@ -21,11 +21,11 @@ For validation purposes:
 ⚙️ DAG Description
 
 **1. ETL Transformation: Generate & Process Data**
-    -> A Glue Job (PySpark-based) is triggered from Airflow.
+A Glue Job (PySpark-based) is triggered from Airflow.
     -> It generates synthetic data, applies required transformations, and outputs the result in Parquet format to an S3 "processed" directory.
 **2. Schema Crawling & Metadata Registration**
-    -> A Glue Crawler scans the transformed S3 data.
-    -> Schema metadata is stored in the Glue Data Catalog, making it queryable via Athena, Redshift Spectrum, or other tools.
+A Glue Crawler scans the transformed S3 data.
+Schema metadata is stored in the Glue Data Catalog, making it queryable via Athena, Redshift Spectrum, or other tools.
 
 <img width="1449" alt="image" src="https://github.com/user-attachments/assets/d5dabb00-0362-4256-bedb-6f6c48f75c19" />
 
