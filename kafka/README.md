@@ -1,6 +1,12 @@
 
 ### 📹 Kafka Consumer/Producer with saving to Postqresql
 
+
+
+https://github.com/user-attachments/assets/5d1d1786-bfb4-4e5d-aec0-03fddad0986d
+
+
+
 ## Commands:
 
 Topic List
