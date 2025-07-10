@@ -2,6 +2,16 @@
 
 This repository contains **prototypes** related to data engineering.
 
+## 📂 Topics
+
+- 🌀 [Airflow](https://github.com/nazar-khimin/data_misc/tree/main/airflow) – ETL workflows processing data across Bronze, Silver, and Golden layers using Airflow 3.0.0 :contentReference[oaicite:0]{index=0}  
+- 🧩 [Extended jaffle_shop_duckdb dbt playground](https://github.com/nazar-khimin/data_misc/tree/main/dbt/jaffle_shop_duckdb) – Runs dbt with DuckDB inside a Docker container, loading raw CSVs via SQL models to keep everything lightweight and local :contentReference[oaicite:1]{index=1}  
+- ☁️ [AWS](https://github.com/nazar-khimin/data_misc/tree/main/aws)  
+  - 🔧 **ETL Pipeline using AWS Glue** – Synthetic data generation, schema extraction via Glue Crawlers, transformations with Glue Jobs, storage in S3/Data Catalog, and querying with Athena :contentReference[oaicite:2]{index=2}  
+  - ⚙️ **Automate AWS resource creation** – Terraform provisioning of S3, MWAA, Glue, IAM, etc., triggered by GitHub Actions :contentReference[oaicite:3]{index=3}  
+- ⚡️ [Kafka Consumer/Producer](https://github.com/nazar-khimin/data_misc/tree/main/kafka) – Publishes to and consumes from Kafka topics, persisting messages into PostgreSQL :contentReference[oaicite:4]{index=4}  
+
+
 ## Sub-projects
 
 **1.Airflow**  
