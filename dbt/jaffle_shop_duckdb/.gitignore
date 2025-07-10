@@ -1,4 +1,4 @@
-dbt/target/
-dbt/logs/
-dbt/.user.yml
-dbt/*.duckdb
+./target/
+./logs/
+./.user.yml
+./*.duckdb
