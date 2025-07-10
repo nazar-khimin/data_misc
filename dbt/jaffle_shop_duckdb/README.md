@@ -104,3 +104,6 @@ WHERE table_type = 'VIEW';
 
 - Make sure your host machine has **Docker** and **DuckDB CLI** installed if you want to inspect manually.
 - CSV files must be in the `data/` folder relative to the root.
+
+## Console execution
+![img.png](console_execution/img.png)
