@@ -4,11 +4,12 @@ This repository contains **prototypes** related to data engineering.
 
 ## 📂 Topics
 
-- 🌀 [Airflow](https://github.com/nazar-khimin/data_misc/tree/main/airflow) – ETL workflows using Airflow 3.0.0
-- 🧩 [Extended jaffle_shop_duckdb dbt playground](https://github.com/nazar-khimin/data_misc/tree/main/dbt/jaffle_shop_duckdb) – Runs dbt with DuckDB inside a Docker container
-  - 🔧 **ETL Pipeline using AWS Glue** – Transformations with Glue Jobs, storage in S3/Data Catalog, and querying with Athena
-  - ⚙️ **Automate AWS resource creation** – Terraform provisioning of S3 triggered by GitHub Actions
-- ⚡️ [Kafka Consumer/Producer](https://github.com/nazar-khimin/data_misc/tree/main/kafka) – Publishes to and consumes from Kafka topics, persisting messages into PostgreSQL
+-  [Airflow](https://github.com/nazar-khimin/data_misc/tree/main/airflow) – ETL workflows using Airflow 3.0.0
+-  [Extended jaffle_shop_duckdb dbt playground](https://github.com/nazar-khimin/data_misc/tree/main/dbt/jaffle_shop_duckdb) – Runs dbt with DuckDB inside a Docker container
+-  [AWS](https://github.com/nazar-khimin/data_misc/tree/main/aws) 
+  - **ETL Pipeline using AWS Glue** – Transformations with Glue Jobs, storage in S3/Data Catalog, and querying with Athena
+  - **Automate AWS resource creation** – Terraform provisioning of S3 triggered by GitHub Actions
+- [Kafka Consumer/Producer](https://github.com/nazar-khimin/data_misc/tree/main/kafka) – Publishes to and consumes from Kafka topics, persisting messages into PostgreSQL
 
 
 ## Sub-projects
