@@ -58,6 +58,9 @@ https://github.com/user-attachments/assets/b504542d-b802-4871-9632-86d5b61f80d0
 
 **3.2 Automate AWS Resource creation using Terraform with GitHub Actions**
 
+![aws/CI Action/docs/actions_ui.png](aws/CI Action/docs/actions_ui.png)
+
+
 **4. Kafka Consumer/Producer with saving to Postqresql**
 
 https://github.com/user-attachments/assets/5d1d1786-bfb4-4e5d-aec0-03fddad0986d
