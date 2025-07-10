@@ -2,7 +2,7 @@
 target/
 dbt_packages/
 dbt_modules/
-logs/
+dbt/logs/
 **/.DS_Store
 .user.yml
 venv/
