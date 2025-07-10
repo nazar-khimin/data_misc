@@ -2,5 +2,3 @@ dbt/target/
 dbt/logs/
 dbt/.user.yml
 dbt/*.duckdb
-
-/requirements.txt
