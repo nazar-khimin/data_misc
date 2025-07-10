@@ -4,13 +4,6 @@ from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.sdk import task, dag, task_group
 from pendulum import datetime
 
-from generators.data_generator import generate_raw_data_and_write_to_csv
-
-@task
-def generate_data_task():
-    file_path = "/opt/airflow/data/raw_data.csv"
-    generate_raw_data_and_write_to_csv(file_path)
-
 @task
 def run_dbt(command: str):
     subprocess.run(command, shell=True, check=True)
@@ -36,9 +29,8 @@ def pipeline_duckdb_dag():
     start = EmptyOperator(task_id="start")
     end = EmptyOperator(task_id="end")
 
-    prep = generate_data_task()
     dbt = dbt_pipeline()
 
-    return start >> prep >> dbt >> end
+    return start >> dbt >> end
 
 dag_instance = pipeline_duckdb_dag()
