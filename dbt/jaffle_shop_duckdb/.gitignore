@@ -1,12 +1,6 @@
-
-target/
-dbt_packages/
-dbt_modules/
+dbt/target/
 dbt/logs/
-**/.DS_Store
-.user.yml
-venv/
-env/
-**/*.duckdb
-**/*.duckdb.wal
+dbt/.user.yml
+dbt/*.duckdb
+
 /requirements.txt
