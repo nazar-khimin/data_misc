@@ -1,51 +1,84 @@
 import streamlit as st
 import duckdb
 import pandas as pd
-import plotly.express as px
+import time
+import queries  # import the queries module
 
-st.set_page_config(layout="wide")
-st.title("SCD Type 2 Visualization")
+# Page config
+st.set_page_config(page_title="SCD Type 2 Visualization", layout="wide")
+st.title("SCD Type 2 Demo in Streamlit")
 
-# DuckDB in-memory
-con = duckdb.connect(database=':memory:')
+# Database connection (in-memory)
+@st.cache_resource
+def init_db():
+    return duckdb.connect(database=':memory:')
 
-# Create Tables
-con.execute("""
-create or replace table delta as (
-    select 1 id, 190 val, date'2022-06-15' fact_date union all
-    select 1, 18 val, date'2022-06-01' union all -- dup scd
-    select 1, 176 val, date'2022-05-30' union all
-    select 1, 174 val, date'2022-05-30' union all -- dup delta
-    select 1, 172 val, date'2022-05-28' union all
-    select 1, 16 val, date'2022-05-24' union all -- dup scd
-    select 1, 150 val, date'2022-05-20' union all
-    select 1, 15 val, date'2022-05-15' union all -- dup scd
-    select 1, 145 val, date'2022-05-13' union all
-    select 1, 140 val, date'2022-05-13' union all -- dup delta
-    select 1, 120 val, date'2022-04-01' union all
-    select 1, 12 val, date'2022-04-01' union all -- dup scd
-    select 1, 100 val, date'2022-03-01'
-);
+con = init_db()
 
-create or replace table scd as (
-    select 1 id, 18 val, date'2022-06-01' effective_from, date'9999-12-31' effective_to, timestamp'2023-01-01' snapshot_update_ts union all
-    select 1, 17 val, date'2022-05-26', date'2022-05-31', timestamp'2023-01-01' union all
-    select 1, 16 val, date'2022-05-24', date'2022-05-25', timestamp'2023-01-01' union all
-    select 1, 15 val, date'2022-05-15', date'2022-05-23', timestamp'2023-01-01' union all
-    select 1, 14 val, date'2022-05-01', date'2022-05-14', timestamp'2023-01-01' union all
-    select 1, 13 val, date'2022-04-15', date'2022-04-30', timestamp'2023-01-01' union all
-    select 1, 12 val, date'2022-04-01', date'2022-04-14', timestamp'2023-01-01' union all
-    select 1, 11 val, date'2022-03-15', date'2022-03-31', timestamp'2023-01-01' union all
-    select 2, 22, date'2022-01-15', date'9999-12-31', timestamp'2023-01-01' union all
-    select 3, 33, date'2022-01-15', date'9999-12-31', timestamp'2023-01-01'
-);
-""")
+# Aggregate queries into list with labels and target tables
+sql_commands = [
+    ("Drop tables", queries.drop_tables_sql(), None),
+    ("Create delta table", queries.create_delta_sql(), "delta"),
+    ("Create initial scd table", queries.create_scd_initial_sql(), "scd"),
+    ("Insert history client 1", queries.insert_history_1_sql(), "scd"),
+    ("Insert history clients 2 & 3", queries.insert_history_23_sql(), "scd"),
+    ("Merge option 1 - Dedup Lef Join Full Recalculation", queries.merge_option_1_query(), None),
+    ("Merge option 2 - Full Recalculation", queries.merge_option_2_query(), None),
+    ("Merge option 3 - Category Insert Optimized", queries.merge_option_3_query(), None),
+]
 
-st.success("✅ `delta` and `scd` tables created in DuckDB")
+# Dropdown to select query
+options = [name for name, _, _ in sql_commands]
+selection = st.selectbox("Choose SQL command:", options)
 
-# Show the top few records
-st.subheader("Preview: delta")
-st.dataframe(con.execute("SELECT * FROM delta ORDER BY fact_date DESC LIMIT 10").df(), use_container_width=True)
+# Find selected SQL and target table
+selected_sql, target_table = next((sql, table) for name, sql, table in sql_commands if name == selection)
 
-st.subheader("Preview: scd")
-st.dataframe(con.execute("SELECT * FROM scd WHERE id = 1 ORDER BY effective_from DESC LIMIT 10").df(), use_container_width=True)
+# Display selected query
+st.subheader(selection)
+st.code(selected_sql, language='sql')
+
+# Button to execute manually
+if st.button(f"Run '{selection}'"):
+    try:
+        start_time = time.perf_counter()
+        result = con.execute(selected_sql)
+        end_time = time.perf_counter()
+        duration_sec = end_time - start_time
+
+        # Show results or row counts
+        if selection.lower().startswith('run') or selected_sql.strip().lower().startswith(('select', 'with')):
+            df = result.df()
+            st.dataframe(df)
+        elif target_table:
+            count_df = con.execute(f"SELECT COUNT(*) AS count FROM {target_table}").df()
+            st.dataframe(count_df)
+            st.success(f"Executed '{selection}' successfully. Row count: {count_df.iloc[0, 0]}")
+        else:
+            st.success(f"Executed '{selection}' successfully.")
+
+        st.info(f"Query execution time: {duration_sec:.3f} seconds")
+    except Exception as e:
+        st.error(f"Error in '{selection}': {e}")
+
+# Show count of rows in delta table immediately
+try:
+    start_time = time.perf_counter()
+    count_delta = con.execute("SELECT COUNT(*) AS count FROM delta").fetchone()[0]
+    end_time = time.perf_counter()
+    duration_sec = end_time - start_time
+
+    st.info(f"Delta table row count: {count_delta} (Query time: {duration_sec:.3f} seconds)")
+except Exception as e:
+    st.error(f"Error counting rows in delta: {e}")
+
+# Show count of rows in scd table immediately
+try:
+    start_time = time.perf_counter()
+    count_scd = con.execute("SELECT COUNT(*) AS count FROM scd").fetchone()[0]
+    end_time = time.perf_counter()
+    duration_sec = end_time - start_time
+
+    st.info(f"SCD table row count: {count_scd} (Query time: {duration_sec:.3f} seconds)")
+except Exception as e:
+    st.error(f"Error counting rows in scd: {e}")
