@@ -1,7 +1,0 @@
-scd_2:
-  target: dev
-  outputs:
-    dev:
-      type: duckdb
-      path: 'data/scd_2.duckdb'
-      threads: 3
