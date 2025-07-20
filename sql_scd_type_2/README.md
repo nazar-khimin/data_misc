@@ -1,3 +1,5 @@
+![img0.png](img/img0.png)
+
 ## What is Slowly Changing Dimension (SCD) Type 2?
 SCD Type 2 is a common data warehousing technique used to track historical changes in dimensional data. Instead of overwriting old data when a dimension attribute changes, SCD Type 2:
 
@@ -46,7 +48,6 @@ max = 6/15/2022
 ```
 This filtering allows your SCD join or merge logic to only process relevant historical versions that align with the new facts' timeframe.
 
-![img.png](img/img0.png)
 
 ## Initial state
 ![img.png](img/img.png)
